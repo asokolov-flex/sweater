@@ -17,7 +17,7 @@
             </li>
             <#if isAdmin>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user">User list</a>
+                    <a class="nav-link" href="/users">User list</a>
                 </li>
             </#if>
             <#if user??>
@@ -28,6 +28,6 @@
         </ul>
 
         <div class="navbar-text mr-3">${name}</div>
-        <@l.logout />
+        <#if user??><@l.logout /><#else><@l.loginNavBar /></#if>
     </div>
 </nav>
