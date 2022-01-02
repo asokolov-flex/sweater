@@ -42,7 +42,7 @@ public class MainController {
         Iterable<Message> messages;
 
         if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
+            messages = messageRepo.findByTagContainsIgnoreCase(filter);
         } else {
             messages = messageRepo.findAll();
         }
