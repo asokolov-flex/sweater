@@ -110,6 +110,10 @@ public class MainController {
     ) {
         Set<Message> messages = user.getMessages();
 
+        model.addAttribute("userChannel", user);
+        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
+        model.addAttribute("subscribersCount", user.getSubscribers().size());
+        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
         model.addAttribute("messages", messages);
         model.addAttribute("message", message);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
@@ -124,28 +128,24 @@ public class MainController {
             @Valid Message message,
             BindingResult bindingResult,
             Model model,
-            @RequestParam("text") String text,
-            @RequestParam("tag") String tag,
             @RequestParam("file") MultipartFile file
-
     ) throws IOException {
+        message.setAuthor(currentUser);
 
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
 
             model.mergeAttributes(errorsMap);
 
-            message.setAuthor(currentUser);
-
             model.addAttribute("message", message);
         } else {
             if (message.getAuthor().equals(currentUser)) {
-                if (!StringUtils.isEmpty(text)) {
-                    message.setText(text);
+                if (!StringUtils.isEmpty(message.getText())) {
+                    message.setText(message.getText());
                 }
 
-                if (!StringUtils.isEmpty(tag)) {
-                    message.setTag(tag);
+                if (!StringUtils.isEmpty(message.getTag())) {
+                    message.setTag(message.getTag());
                 }
 
                 saveFile(message, file);
