@@ -191,7 +191,8 @@ public class MessageController {
 
         try {
             String[] split = referer.split("=");
-            if (split.length > 1) {
+            if (referer.split("&").length == 1
+                    && referer.split("&")[0].contains("filter")) {
                 decodeUrl = split[0] + "=" + URLDecoder.decode(split[1], "UTF-8");
             } else {
                 decodeUrl = referer;
