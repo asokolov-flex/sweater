@@ -1,5 +1,7 @@
 
 <#import "parts/common.ftl" as c>
+<#import "parts/pager.ftl" as p>
+
 
 <@c.page>
     <div class="form-row">
@@ -13,6 +15,8 @@
 
     <#include "parts/messageEdit.ftl" />
 
+    <@p.pager url page />
     <#include "parts/messageList.ftl" />
+    <@p.pager url page />
 
 </@c.page>

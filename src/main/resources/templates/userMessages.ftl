@@ -1,5 +1,7 @@
 <#import "parts/common.ftl" as c>
 
+<#import "parts/pager.ftl" as p>
+
 <@c.page>
     <h3>${userChannel.username}</h3>
     <#if !isCurrentUser>
@@ -37,5 +39,7 @@
         <#include "parts/messageEdit.ftl" />
     </#if>
 
+    <@p.pager url page />
     <#include "parts/messageList.ftl" />
+    <@p.pager url page />
 </@c.page>
